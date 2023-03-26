@@ -1,2 +1,0 @@
-# PYTHON
-Projetos em python.
