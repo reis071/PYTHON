@@ -27,12 +27,20 @@ while loop:
 
             while True:
               placa_add = input('Digite a PLACA do carro: ').upper()
+              
+              placa_existente = False
+              
+              for c in con:
+                if placa_add == c['_Carro__placa']:
+                  placa_existente = True
+                  print('Esta placa ja existe!tente outra.')
+              
+              if placa_existente == False:
+                if len(placa_add) == 7:
+                  break
 
-              if len(placa_add) == 7:
-                break
-
-              else:
-                print('Tem que ter total de 7 caracteres para registrar a PLACA!')
+                else:
+                  print('Tem que ter total de 7 caracteres para registrar a PLACA!')
 
             fabricante_add = input('Digite o FABRICANTE do carro: ').title()
             modelo_add = input('Digite o MODELO do carro: ').title()
@@ -42,14 +50,20 @@ while loop:
             
             con.append(carro.__dict__)
             
+            print('Carro Registrado com sucesso!')
+            
             
         case '2':
           '''A 2° opção consiste em imprimir todos os carros cadastrados'''
-          print('{:<12} {:<12} {:<12} {:<15} {:<12} {:<12}'.format('Posição','Nome','Placa',
-                                                                   'Fabricante','Modelo','Cor'))
-          for b,p in enumerate(con):
-            print('{:<12} {:<12} {:<12} {:<15} {:<12} {:<12}'.format(b,p['nome'],p['_Carro__placa'],
-                                                           p['_Carro__fabricante'],p['modelo'],p['cor']))
+          if not con:
+            print('Nenhum carro registrado!')
+          
+          else:
+            print('{:<12} {:<12} {:<12} {:<15} {:<12} {:<12}'.format('Posição','Nome','Placa',
+                                                                    'Fabricante','Modelo','Cor'))
+            for b,p in enumerate(con):
+              print('{:<12} {:<12} {:<12} {:<15} {:<12} {:<12}'.format(b,p['nome'],p['_Carro__placa'],
+                                                            p['_Carro__fabricante'],p['modelo'],p['cor']))
             
             
         
@@ -67,14 +81,14 @@ while loop:
                 if confirmacao[0] in 'Ss':
                   encontrado = True
                   con.pop(b)
-                  print('removido')
+                  print('Veiculo REMOVIDO com sucesso!')
 
                 elif confirmacao[0] in 'Nn':
                   encontrado = True
                   print('Remoção cancelada!')
                   
           if encontrado == False:
-             print('Carro não encontrado')
+             print('Veiculo não encontrado')
 
 
         case '4': 
@@ -103,15 +117,23 @@ while loop:
                     c['nome'] = nome_alt
 
                    case '2':
-                    while True:
-                      placa_alt = input('Digite a PLACA do carro: ').upper()
+                     while True:
+                        placa_alt = input('Digite a PLACA do carro: ').upper()
+                        
+                        placa_existente = False
+                        
+                        for p in con:
+                          if placa_alt == p['_Carro__placa']:
+                            placa_existente = True
+                            print('Esta placa ja existe!tente outra.')
+                        
+                        if placa_existente == False:
+                          if len(placa_add) == 7:
+                            c['_Carro__placa'] = placa_alt
+                            break
 
-                      if len(placa_alt) == 7:
-                        c['_Carro__placa'] = placa_alt
-                        break
-                      
-                      else:
-                        print('Tem que ter total de 7 caracteres para MODIFICAR a PLACA!')
+                          else:
+                            print('Tem que ter total de 7 caracteres para registrar a PLACA!')
 
                    case '3':
                     fabricante_alt = input('ALTERE o FABRICANTE do carro: ').title()
@@ -131,13 +153,21 @@ while loop:
 
                      while True:
                       placa_alt = input('Digite a PLACA do carro: ').upper()
+                        
+                      placa_existente = False
+                        
+                      for p in con:
+                        if placa_alt == p['_Carro__placa']:
+                          placa_existente = True
+                          print('Esta placa ja existe!tente outra.')
+                        
+                      if placa_existente == False:
+                        if len(placa_add) == 7:
+                          c['_Carro__placa'] = placa_alt
+                          break
 
-                      if len(placa_alt) == 7:
-                        c['_Carro__placa'] = placa_alt
-                        break
-                      
-                      else:
-                        print('Tem que ter total de 7 caracteres para MODIFICAR a PLACA!')
+                        else:
+                         print('Tem que ter total de 7 caracteres para registrar a PLACA!')
 
                      fabricante_alt = input('ALTERE o FABRICANTE do carro: ').title()
                      c['_Carro__fabricante'] = fabricante_alt
@@ -147,6 +177,8 @@ while loop:
 
                      cor_alt = input('ALTERE a COR do carro: ').title()
                      c['cor'] = cor_alt
+                     
+                     print('Veiculo MODIFICADO com sucesso!')
 
                    case '7':
                      print('Alteração cancelada!')
@@ -186,4 +218,4 @@ while loop:
 
         case _:
           print('Tente novamente')
-          
+        
